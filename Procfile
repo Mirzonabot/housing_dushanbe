@@ -1,1 +1,1 @@
-web gunicorn price_estimator.wsgi:application --log-file
+web gunicorn price_estimator.wsgi
