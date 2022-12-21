@@ -1,1 +1,1 @@
-web gunicorn price_estimator.wsgi
+web gunicorn price_estimator:application --preload -b 0.0.0.0:5000 
