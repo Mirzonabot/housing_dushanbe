@@ -1,0 +1,19 @@
+body {
+  background-color: lightblue;
+  font-family: verdana;
+}
+
+.container{
+  background-color: blue;
+}
+
+form{
+  background-color: blueviolet;
+  width: fit-content;
+  margin: auto;
+}
+
+.map{
+  width: fit-content;
+  margin: auto;
+}
