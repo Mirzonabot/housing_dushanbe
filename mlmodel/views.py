@@ -2,6 +2,8 @@ from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 
 from .forms import MyGeoForm
 
+from .models import Prediction
+
 import xgboost
 import pickle
 import numpy as np
@@ -33,9 +35,16 @@ def index(request):
         lat  = float(point.y)
         parameters = np.array([[rooms,floor,area,lat,long]], dtype=object)
         prediction = model.predict(parameters)[0] 
+        pred = Prediction.objects.create(floor = floor,rooms = rooms,area = area,latitude = lat,longitude = long,price = prediction)
+        # print(pred)
         print(prediction)
         
        
     form = MyGeoForm()
 
     return render(request, 'index.html', {'form': form, "price":prediction})
+
+def prediction_history(request):
+    predictions = Prediction.objects.all()
+    print(predictions)
+    return render(request, 'predictions.html', {'predictions':predictions})
