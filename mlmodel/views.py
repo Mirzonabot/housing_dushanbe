@@ -9,8 +9,9 @@ import pickle
 import numpy as np
 import json
 
-import utm
 from django.contrib.gis.geos import Point
+
+import folium
 
 filename = "xgboost_model.sav"
 model = pickle.load(open(filename, 'rb'))
@@ -47,4 +48,19 @@ def index(request):
 def prediction_history(request):
     predictions = Prediction.objects.all()
     print(predictions)
-    return render(request, 'predictions.html', {'predictions':predictions})
+    m = folium.Map(location=[38.559772,68.787038],zoom_start=12)
+
+    for row in predictions:
+        iframe = folium.IFrame("Date and time " + str(row.created_on)
+                                + " </br> Floor " + str(row.floor)
+                                + " </br> Rooms " + str(row.rooms)
+                                + " </br> Area(in m^2) " + str(row.area)
+                                + " </br> Price " + str(row.price))
+        popup = folium.Popup(iframe, min_width = 200, max_width=300)
+
+        folium.Marker(location=[row.latitude,row.longitude],
+                        popup=popup,c = row.price).add_to(m)
+
+    m = m._repr_html_()
+    
+    return render(request, 'predictions.html', {'predictions':predictions, 'map':m})
