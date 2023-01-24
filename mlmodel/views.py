@@ -47,7 +47,7 @@ def index(request):
 
         pred = Prediction.objects.create(floor = floor,rooms = rooms,area = area,latitude = lat,longitude = long,address = address,price = prediction)
         # print(pred)
-        print(prediction)
+        №print(prediction)
         
        
     form = MyGeoForm()
