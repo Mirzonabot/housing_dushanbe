@@ -13,6 +13,9 @@ from django.contrib.gis.geos import Point
 
 import folium
 
+from geopy.geocoders import Nominatim
+
+
 filename = "xgboost_model.sav"
 model = pickle.load(open(filename, 'rb'))
 
@@ -21,6 +24,7 @@ def index(request):
     # if this is a POST request we need to process the form data
 
     prediction = None
+    address = None
 
     if request.method == 'POST':
         response = request.POST
@@ -36,17 +40,22 @@ def index(request):
         lat  = float(point.y)
         parameters = np.array([[rooms,floor,area,lat,long]], dtype=object)
         prediction = model.predict(parameters)[0] 
-        pred = Prediction.objects.create(floor = floor,rooms = rooms,area = area,latitude = lat,longitude = long,price = prediction)
+
+        geolocator = Nominatim(user_agent="geoapiExercises")
+        address = geolocator.reverse(str(lat)+","+str(long))
+        print(address)
+
+        pred = Prediction.objects.create(floor = floor,rooms = rooms,area = area,latitude = lat,longitude = long,address = address,price = prediction)
         # print(pred)
         print(prediction)
         
        
     form = MyGeoForm()
 
-    return render(request, 'index.html', {'form': form, "price":prediction})
+    return render(request, 'index.html', {'form': form, "price":prediction, "address":address})
 
 def prediction_history(request):
-    predictions = Prediction.objects.all()
+    predictions = Prediction.objects.all().distinct()
     print(predictions)
     m = folium.Map(location=[38.559772,68.787038],zoom_start=12)
 

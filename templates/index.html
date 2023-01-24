@@ -28,27 +28,14 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-white">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                    data-mdb-target="#navbarExample01" aria-controls="navbarExample01" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
                 <div class="collapse navbar-collapse" id="navbarExample01">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
                             <a class="nav-link" aria-current="page" href="#">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'previous' %}">Predictions</a>
+                        
+                        <li class="nav-item leftitem">
+                            <a class="nav-link" href="{% url 'previous' %}">Previous Predictions</a>
                         </li>
                     </ul>
                 </div>
@@ -56,20 +43,8 @@
         </nav>
         <!-- Navbar -->
 
-        <!-- Jumbotron -->
-        <div class="p-5 text-center bg-light">
-            <h1 class="mb-3">Heading</h1>
-            <h4 class="mb-3">Subheading</h4>
-            <a class="btn btn-primary" href="#predict" role="button">Call to action</a>
-        </div>
-        {% if price %}
-            <div class="p-5 text-center bg-light">
-            
         
-                <h5 class="mb-3">Price : {{price}}</h5>
-            
-            </div>
-        {% endif %}
+        
 
         <!-- Jumbotron -->
     </header>
@@ -88,16 +63,36 @@
                     <td>{{ form.area_m_sqrd }}</td>
                 </tr>
                 <tr >
-                    <td colspan="3"><div class="map">{{ form.point }}</div></td>
+                    <td colspan="3"><div class="map_form">{{ form.point }}</div></td>
                 </tr>
 
             </table>
-            <input type="submit" value="Submit">
+            <input type="submit" class="btn btn-primary" value="Predict price!!!" >
         </form>
     </div>
+    {% if price %}
+        <div class="card mx-auto" id="popup2">
+            <div class="card-body h-100">
+                <h5 class="card-title">Housing price prediction for:</h5>
+                <p class="card-text">Approximate address: {{address}}</p>
+                <p class="card-text">Price: {{price}} Somoni</p>
+                <a href="#" class="btn btn-primary mx-auto" onclick="hide('popup2')">Make another prediction</a>
+            </div>
+        </div>
+    {% endif %}
     
     
 
 </body>
+<script>
+    show("popup2");
+    function show(id) {
+        document.getElementById(id).style.display = 'block';
+    }
+
+    function hide(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+</script>
 
 </html>

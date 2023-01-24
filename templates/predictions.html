@@ -36,30 +36,15 @@
                         <li class="nav-item active">
                             <a class="nav-link" aria-current="page" href="{% url 'index' %}">Home</a>
                         </li>
+                        
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'previous' %}">Predictions</a>
+                            <a class="nav-link" href="#">Previous Predictions</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- Navbar -->
-
-        <!-- Jumbotron -->
-        <div class="p-5 text-center bg-light">
-            <h1 class="mb-3">Heading</h1>
-            <h4 class="mb-3">Subheading</h4>
-            <a class="btn btn-primary" href="#predict" role="button">Call to action</a>
-        </div>
     </header>
     <div class="container">
         <div>
@@ -83,6 +68,7 @@
                 <th scope="col">Area (in m^2)</th>
                 <th scope="col">Latitude</th>
                 <th scope="col">Longitude</th>
+                <th scope="col">Address</th>
                 <th scope="col">Price</th>
             </tr>
         </thead>
@@ -95,6 +81,7 @@
                 <td>{{ row.area }}</td>
                 <td>{{ row.latitude }}</td>
                 <td>{{ row.longitude }}</td>
+                <td>{{ row.address }}</td>
                 <td>{{ row.price }}</td>
             </tr>
             {% endfor %}

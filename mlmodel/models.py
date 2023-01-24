@@ -9,7 +9,9 @@ class Prediction(models.Model):
     area = models.FloatField(default=0)
     latitude = models.FloatField(default=0)
     longitude = models.FloatField(default=0)
+    address = models.CharField(default="no address",max_length=200)
     price = models.FloatField(default=0)
     created_on = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return str(self.created_on)
