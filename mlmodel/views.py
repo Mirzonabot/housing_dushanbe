@@ -47,7 +47,7 @@ def index(request):
 
         pred = Prediction.objects.create(floor = floor,rooms = rooms,area = area,latitude = lat,longitude = long,address = address,price = prediction)
         # print(pred)
-        №print(prediction)
+        #print(prediction)
         
        
     form = MyGeoForm()
@@ -56,7 +56,7 @@ def index(request):
 
 def prediction_history(request):
     predictions = Prediction.objects.all().distinct()
-    print(predictions)
+    # print(predictions)
     m = folium.Map(location=[38.559772,68.787038],zoom_start=12)
 
     for row in predictions:
